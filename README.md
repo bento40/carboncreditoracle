@@ -6,7 +6,7 @@ This is the example code structure to present the idea for Net Zero Carbon Credi
 
 ## Installation
 
-There are two ways to run the code. First, use [Remix IDE](https://remix.ethereum.org/) or run using truffle
+There are two ways to run the code. First, copy carboncredit.sol to [Remix IDE](https://remix.ethereum.org/) or run using truffle
 Install Node.
 
 ```bash
@@ -25,31 +25,60 @@ Deploy Smart Contract.
 truffle develop
 ```
 
-## Usage
+## Demo Usage
 
 The smart contract is an example of smart meter to gain carbon credit from energy efficiency (reduce usage and optimize energy) it can be apply to other iot device with a few change in calculation of carbon credit. The flow of function shall be as follow;
 
 ![alt text](https://github.com/bento40/carboncreditoracle/blob/master/flow.png?raw=true)
 
-1.
+1. Connect IoT device or Data from server with Metamask wallet of user. Call back function may required in order to get confirm information from otherside
 
 ```solidity
-// SPDX-License-Identifier: MIT
-pragma solidity >=0.6.0 <0.9.0;
-
-contract HelloWorld {
-    function helloWorld() external pure returns (string memory) {
-        return "Hello, World!";
+    // Link Metamask Wallet with IoT Device or centralize server data api (require call back to verify in the future)
+    function linkDevice(string memory public_key) external {
+        meter_owner[public_key] = msg.sender;
     }
-}
 ```
 
-## Contributing
+2. Fetch data from IoT device or Server
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+```solidity
+    // fetch data from iot device using oracle
+    function fetchIotData(string memory public_key, int256 energy) external {
+        address address_owner = getAddress(public_key);
+        meter_data = owner_data[address_owner];
+        meter_data.push(SmartMeter(public_key, energy));
+        owner_data[address_owner] = meter_data;
+    }
+```
 
-Please make sure to update tests as appropriate.
+3. Calculate Carbon credit
 
-## License
+```solidity
+    // calculate carbon credit from energy efficiency read from smart meter. Simplify version
+    function _calCarbon() public returns (int256) {
+        SmartMeter[] memory meter_data1 = owner_data[msg.sender];
+        uint256 meter_length = meter_data1.length;
+        int256 energy_after = meter_data1[meter_length - 1]
+            .tuya_get_emasure_energy;
+        int256 energy_before = meter_data1[meter_length - 2]
+            .tuya_get_emasure_energy;
 
-[MIT](https://choosealicense.com/licenses/mit/)
+        int256 carbon_offset = energy_after - energy_before;
+        owner_carbon[msg.sender] = owner_carbon[msg.sender] + carbon_offset;
+        return owner_carbon[msg.sender];
+    }
+```
+
+4. Redeem Carbon credit function and reset to 0
+
+```solidity
+    // redeem carbon credit from approval metaverse
+    function redeemCarbonCredit() external {
+        owner_carbon[msg.sender] = 0;
+    }
+```
+
+## Full version note
+
+Full version shall include -integrate with real device as well as NetZero Metaverse - have ERC-721 Carbon credit issuer to be able to trade on NFT market - burn with each metaverse - store data in IPFS. It is under development
