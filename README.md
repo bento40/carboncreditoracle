@@ -36,7 +36,7 @@ networks: {
 Deploy Smart Contract.
 
 ```bash
-truffle develop
+truffle migrate --reset --network rinkeby
 ```
 
 ## Demo Usage
