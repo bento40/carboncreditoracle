@@ -1,28 +1,42 @@
-# Foobar
+# Net Zero Carbon Credit Oracle
 
-Foobar is a Python library for dealing with word pluralization.
+This is the example code structure to present the idea for Net Zero Carbon Credit Oracle where small sustainability activities that inline with carbon credit calculation is recored in a decentralized and transparent way for future benefit as well as future validation for tradable voluntary carbon credit.
 
 ## Installation
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Install Node.
 
 ```bash
-pip install foobar
+nvm install node --reinstall-packages-from=node
+```
+
+Install Truffle.
+
+```bash
+npm install -g truffle
+```
+
+Deploy Smart Contract.
+
+```bash
+truffle develop
 ```
 
 ## Usage
 
-```python
-import foobar
+The flow of function shall be as follow;
 
-# returns 'words'
-foobar.pluralize('word')
+1.
 
-# returns 'geese'
-foobar.pluralize('goose')
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.6.0 <0.9.0;
 
-# returns 'phenomenon'
-foobar.singularize('phenomena')
+contract HelloWorld {
+    function helloWorld() external pure returns (string memory) {
+        return "Hello, World!";
+    }
+}
 ```
 
 ## Contributing
