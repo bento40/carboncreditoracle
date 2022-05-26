@@ -27,7 +27,9 @@ truffle develop
 
 ## Usage
 
-The smart contract is an example of smart meter to gain carbon credit from energy efficiency (reduce usage and optimize energy) flow of function shall be as follow;
+The smart contract is an example of smart meter to gain carbon credit from energy efficiency (reduce usage and optimize energy) it can be apply to other iot device with a few change in calculation of carbon credit. The flow of function shall be as follow;
+
+![alt text](https://github.com/bento40/carboncreditoracle/blob/master/flow.png?raw=true)
 
 1.
 
