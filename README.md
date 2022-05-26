@@ -13,10 +13,24 @@ Install Node.
 nvm install node --reinstall-packages-from=node
 ```
 
-Install Truffle.
+Install Truffle and HDwallet-provider
 
 ```bash
 npm install -g truffle
+npm install @truffle/hdwallet-provider
+```
+
+Update infura api key
+
+```js
+networks: {
+    rinkedby: {
+      provider: () =>
+        new provider(
+          'https://rinkeby.infura.io/v3/7c6ef22d37684d9fa210bf4ad5cb2fb2',
+        ),
+        network_id:4
+    },
 ```
 
 Deploy Smart Contract.
